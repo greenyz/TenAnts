@@ -1,0 +1,1 @@
+run custom tests with 'VERBOSE=1 TEST_SERVER=127.0.0.1:8000 ./runTests.sh'

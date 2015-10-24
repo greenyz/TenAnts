@@ -1,0 +1,1 @@
+web: gunicorn TenAnts.wsgi --log-file -
