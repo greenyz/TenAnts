@@ -2,7 +2,7 @@ import json, time, datetime
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from models import HousingPost
 #************* View Handlers ****************
@@ -92,8 +92,10 @@ def check_errors_housing(housing_json):
 	if len(housing_json['line2']) > 95:
 		errors.append("Line2 must be fewer than 95 characters")
 
-
 	return errors
+
+
+
 #************* Account Authentication ****************
 
 # /api/account POST
@@ -170,6 +172,7 @@ def is_email(email):
 			return True
 	return False
 
+
 # /api/login POST
 def login_account(request):
 	account_json = json.loads(request.body)
@@ -183,6 +186,15 @@ def login_account(request):
 			return error_response("Your account has been disabled. Check your email for details")
 	else:
 		return error_response("Your account does not exist!")
+
+# /api/logout
+def logout_api(request):
+	try:
+		logout(request)
+		return home(request)
+	except Exception, e:
+		return error_response(e)
+	
 
 # /api/account DELETE
 def delete_testing_accounts(request):

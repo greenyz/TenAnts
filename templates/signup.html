@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 <html>
-<head>
-	<title>10Ants - Sign Up</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}" />
-    <script src="{% static 'scripts/jquery.min.js' %}"></script>
-    <!-- <script type="text/javascript" src="{% static 'scripts/10Ants.js' %}"></script>
-    <script type="text/javascript">
-        // This is a jQuery convention to say that once all the files
-        // load, the function Smile.start() should run.
-        // This function is defined in the smiles.js
+    <head>
+    	<title>10Ants - Sign Up</title>
+    	<link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}" />
+        <script src="{% static 'scripts/jquery.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'scripts/TenAnts.js' %}"></script>
+        <script type="text/javascript">
+            // This is a jQuery convention to say that once all the files
+            // load, the function TenAnts.start() should run.
+            // This function is defined in the smiles.js
 
-        $(function() {
-            10Ants.start();
-        });
-    </script> -->
-</head>
-	<body>
-		First name: <input type="text" name="fname"><br>
-    Last name: <input type="text" name="lname"><br>
-    Email: <input type="text" name="email"><br>
-    Password: <input type="text" name="password"><br>
-	</body>
+            $(function() {
+                TenAnts.start();
+            });
+        </script>
+    </head>
+
+    <header>
+        <div class="header_user">
+            {% if request.user.is_authenticated %}
+                Welcome, {{ request.user.username }} | <a href="/api/logout">Sign Out</a>
+            {% else %}
+                <a href="{% url django.contrib.auth.login %}">Login</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <body>
+        <div class="signup_form">
+    		First name: <input type="text" id="first_name_SU"><br>
+            Last name: <input type="text" id="last_name_SU"><br>
+            Email: <input type="text" id="email_SU"><br>
+            Password: <input type="password" id="password_SU"><br>
+            <input type="submit" value="Sign Up" id="signup_btn">
+        </div>
+    </body>
 </html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+        <title>10 Ants - {% block title %}My amazing site{% endblock %}</title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}" />
+        <script src="{% static 'scripts/jquery.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'scripts/TenAnts.js' %}"></script>
+        <script type="text/javascript">
+            // This is a jQuery convention to say that once all the files
+            // load, the function TenAnts.start() should run.
+            // This function is defined in the smiles.js
+
+            $(function() {
+                TenAnts.start();
+            });
+        </script>
+    </head>
+    {% block header %}
+        <header>
+            <div class="header_user">
+                {% if request.user.is_authenticated %}
+                    Welcome, {{ request.user.first_name }} {{ request.user.last_name }} | <a href="/api/logout">Sign Out</a>
+                {% else %}
+                    <div class="login_form">
+                        Email: <input type="text" id="email_LI">
+                        Password: <input type="password" id="password_LI">
+                        <input type="submit" value="Login" class="login_btn">
+                    </div>
+                {% endif %}
+            </div>
+        </header>
+    {% endblock %}
+
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>
